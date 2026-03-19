@@ -1,7 +1,7 @@
 // middleware.ts
 import { NextRequest, NextResponse } from 'next/server'
 
-const PROTECTED_PREFIXES = ['/account', '/checkout', '/orders']
+const PROTECTED_PREFIXES = [ '/checkout', '/orders', '/account-dashboard']
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
@@ -32,5 +32,10 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/account/:path*', '/checkout/:path*', '/orders/:path*'],
+  matcher: [
+    '/admin/:path*',
+    '/checkout/:path*',
+    '/orders/:path*',
+    '/account-dashboard/:path*',
+  ],
 }

@@ -1,50 +1,38 @@
-//src\components\Logout.tsx
+// src/components/Logout.tsx
 import { LogoutButton } from '@/components/LogoutButton'
 
 export default function LogoutPage() {
   return (
-    <main
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#f9f9f9',
-        fontFamily: 'system-ui, sans-serif',
-        padding: '24px',
-      }}
-    >
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '340px',
-          background: '#fff',
-          border: '1px solid #e5e5e5',
-          borderRadius: '10px',
-          padding: '36px 32px',
-          textAlign: 'center',
-        }}
-      >
-        <h1 style={{ fontSize: '20px', fontWeight: '600', color: '#111', marginBottom: '8px' }}>
-          Sign out?
-        </h1>
-        <p style={{ fontSize: '14px', color: '#666', marginBottom: '28px', lineHeight: '1.6' }}>
+    <main className="min-h-screen flex items-center justify-center bg-zinc-50 font-sans px-6 py-10">
+      <div className="w-full max-w-sm bg-white border border-zinc-200 rounded-2xl px-8 py-10 text-center shadow-sm">
+        {/* Icon */}
+        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-zinc-100 mx-auto mb-5">
+          <svg
+            className="w-5 h-5 text-zinc-500"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
+          </svg>
+        </div>
+
+        <h1 className="text-lg font-semibold text-zinc-900 mb-2">Sign out?</h1>
+        <p className="text-sm text-zinc-500 mb-8 leading-relaxed">
           You'll be redirected to the login page.
         </p>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <div className="flex flex-col gap-3">
           <LogoutButton />
           <a
-            href="/account"
-            style={{
-              display: 'block',
-              padding: '10px 16px',
-              border: '1px solid #e5e5e5',
-              borderRadius: '7px',
-              color: '#555',
-              fontSize: '14px',
-              textDecoration: 'none',
-            }}
+            href="/account-dashboard"
+            className="block px-4 py-2.5 border border-zinc-200 rounded-xl text-sm text-zinc-600 hover:bg-zinc-50 hover:text-zinc-800 transition-colors duration-150 no-underline"
           >
             Cancel
           </a>

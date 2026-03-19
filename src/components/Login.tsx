@@ -1,4 +1,4 @@
-//src\components\Login.tsx
+// src/components/Login.tsx
 'use client'
 
 import { useSearchParams } from 'next/navigation'
@@ -19,68 +19,21 @@ function LoginInner() {
   const errorMessage = errorKey ? (ERROR_MESSAGES[errorKey] ?? 'An unknown error occurred.') : null
 
   return (
-    <main
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#f9f9f9',
-        fontFamily: 'system-ui, sans-serif',
-        padding: '24px',
-      }}
-    >
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '360px',
-          background: '#fff',
-          border: '1px solid #e5e5e5',
-          borderRadius: '10px',
-          padding: '36px 32px',
-        }}
-      >
-        <h1 style={{ fontSize: '20px', fontWeight: '600', color: '#111', marginBottom: '6px' }}>
-          Sign in
-        </h1>
-        <p style={{ fontSize: '14px', color: '#666', marginBottom: '28px' }}>
-          Use your Google account to continue.
-        </p>
+    <main className="min-h-screen flex items-center justify-center bg-gray-50 font-sans px-6">
+      <div className="w-full max-w-sm bg-white border border-gray-200 rounded-xl px-8 py-9">
+        <h1 className="text-xl font-semibold text-gray-900 mb-1">Sign in</h1>
+
+        <p className="text-sm text-gray-500 mb-7">Use your Google account to continue.</p>
 
         {errorMessage && (
-          <div
-            style={{
-              background: '#fff5f5',
-              border: '1px solid #fca5a5',
-              borderRadius: '6px',
-              padding: '10px 14px',
-              marginBottom: '20px',
-              fontSize: '13.5px',
-              color: '#b91c1c',
-            }}
-          >
+          <div className="bg-red-50 border border-red-300 text-red-700 text-sm rounded-md px-4 py-2.5 mb-5">
             {errorMessage}
           </div>
         )}
 
         <a
           href="/api/users/auth/google"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '10px',
-            width: '100%',
-            padding: '11px 16px',
-            background: '#fff',
-            border: '1px solid #d1d5db',
-            borderRadius: '7px',
-            color: '#111',
-            fontSize: '14.5px',
-            fontWeight: '500',
-            textDecoration: 'none',
-            boxSizing: 'border-box',
-          }}
+          className="flex items-center justify-center gap-2.5 w-full px-4 py-2.5 border border-gray-300 rounded-md text-gray-900 text-sm font-medium bg-white hover:bg-gray-50 transition"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
             <path
@@ -103,9 +56,9 @@ function LoginInner() {
           Continue with Google
         </a>
 
-        <p style={{ marginTop: '20px', fontSize: '13px', color: '#999', textAlign: 'center' }}>
+        <p className="mt-5 text-xs text-gray-400 text-center">
           Staff?{' '}
-          <a href="/admin" style={{ color: '#2563eb', textDecoration: 'none' }}>
+          <a href="/admin" className="text-blue-600 hover:underline">
             Sign in via Admin →
           </a>
         </p>

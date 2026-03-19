@@ -1,0 +1,39 @@
+// src/components/Navbar.tsx
+import Link from 'next/link'
+import { getUser } from '@/auth/getUser'
+
+const Navbar = async () => {
+  const user = await getUser()
+
+  //console.log('USER:', JSON.stringify(user, null, 2))
+
+  const navLinks = [
+    { name: 'Home', href: '/' },
+    ...(user
+      ? [
+          { name: 'AccountDashboard', href: '/account-dashboard' },
+          { name: 'Logout', href: '/logout' },
+        ]
+      : [{ name: 'Login', href: '/login' }]),
+  ]
+
+  const greeting = user ? `Hello, ${user.displayName?.firstName ?? user.email}` : 'Hello, Guest'
+
+  return (
+    <nav className="flex items-center gap-6 px-6 py-4 border-b border-[#e5e5e5] font-sans text-sm">
+      {navLinks.map((link) => (
+        <Link
+          key={link.href}
+          href={link.href}
+          className="text-white hover:text-blue-500 no-underline transition-colors"
+        >
+          {link.name}
+        </Link>
+      ))}
+
+      <span className="ml-auto text-white">{greeting}</span>
+    </nav>
+  )
+}
+
+export default Navbar

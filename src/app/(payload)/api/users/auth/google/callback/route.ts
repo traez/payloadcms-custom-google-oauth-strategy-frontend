@@ -98,7 +98,7 @@ export async function GET(req: NextRequest) {
     }
 
     // ── 5. Forward Payload's session cookie and redirect ─────────────────────
-    const response = NextResponse.redirect(`${FRONTEND_URL}/account`)
+    const response = NextResponse.redirect(`${FRONTEND_URL}/account-dashboard`)
     clearOAuthCookies(response)
 
     const setCookie = loginRes.headers.get('set-cookie')
