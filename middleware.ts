@@ -1,11 +1,19 @@
 // middleware.ts
 import { NextRequest, NextResponse } from 'next/server'
 
-const PROTECTED_PREFIXES = [ '/checkout', '/orders', '/account-dashboard']
+const PROTECTED_PREFIXES = ['/checkout', '/orders', '/account-dashboard']
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
   const token = req.cookies.get('payload-token')
+
+  // Redirect authenticated users away from /login
+  if (pathname.startsWith('/login')) {
+    if (token) {
+      return NextResponse.redirect(new URL('/account-dashboard', req.url))
+    }
+    return NextResponse.next()
+  }
 
   // /admin — presence check only, Payload verifies JWT + role internally
   if (pathname.startsWith('/admin')) {
@@ -18,9 +26,7 @@ export function middleware(req: NextRequest) {
   // Customer-facing protected routes
   const isProtected = PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix))
 
-  if (!isProtected) {
-    return NextResponse.next()
-  }
+  if (!isProtected) return NextResponse.next()
 
   if (!token) {
     const loginUrl = new URL('/login', req.url)
@@ -33,6 +39,7 @@ export function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
+    '/login', // ← add this
     '/admin/:path*',
     '/checkout/:path*',
     '/orders/:path*',

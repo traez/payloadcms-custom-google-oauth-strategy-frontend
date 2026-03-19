@@ -41,7 +41,7 @@ export const customer: Access = ({ req: { user } }) => user?.role === 'customer'
 // `ownerField` is the name of the relationship field pointing at Users (default: 'user')
 export const selfOrStaff =
   (ownerField = 'user'): Access =>
-  ({ req: { user }, id }) => {
+  ({ req: { user } }) => {
     if (!user) return false
     // Staff can always access
     if (['admin', 'owner', 'editor'].includes(user.role)) return true

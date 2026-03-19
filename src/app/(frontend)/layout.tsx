@@ -1,4 +1,4 @@
-import React from 'react'
+//src\app\(frontend)\layout.tsx
 import './styles.css'
 import Navbar from '@/components/Navbar'
 

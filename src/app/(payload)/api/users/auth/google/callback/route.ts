@@ -101,9 +101,10 @@ export async function GET(req: NextRequest) {
     const response = NextResponse.redirect(`${FRONTEND_URL}/account-dashboard`)
     clearOAuthCookies(response)
 
-    const setCookie = loginRes.headers.get('set-cookie')
-    if (setCookie) {
-      response.headers.set('set-cookie', setCookie)
+    // ✅ Forward ALL set-cookie headers from Payload's login response
+    const setCookies = loginRes.headers.getSetCookie() // returns string[]
+    for (const cookie of setCookies) {
+      response.headers.append('set-cookie', cookie)
     }
 
     return response

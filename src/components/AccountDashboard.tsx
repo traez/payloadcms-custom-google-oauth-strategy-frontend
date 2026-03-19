@@ -1,19 +1,30 @@
 //src\components\AccountDashboard.tsx
 import { getUser } from '@/auth/getUser'
 import { redirect } from 'next/navigation'
-import { LogoutButton } from '@/components/LogoutButton'
 
 export default async function AccountDashboard() {
   const user = await getUser()
 
-  if (!user || user.role !== 'customer') {
+  // Not authenticated at all — send to login
+  if (!user) {
     redirect('/login')
+  }
+
+  // Authenticated but not a customer (e.g. admin) — send to admin panel
+  // instead of /login to avoid a redirect loop: middleware sees the valid
+  // cookie and bounces them back to /account-dashboard indefinitely.
+  if (user.role !== 'customer') {
+    redirect('/admin')
   }
 
   const firstName = user.displayName?.firstName ?? ''
   const lastName = user.displayName?.lastName ?? ''
 
-  const strategies = (user.externalId?.authStrategies ?? []) as any[]
+  const strategies = (user.externalId?.authStrategies ?? []) as Array<{
+    provider: string
+    linkedAt?: string
+    tokenExpiry?: string
+  }>
   const google = strategies.find((s) => s.provider === 'google')
 
   return (
@@ -28,7 +39,7 @@ export default async function AccountDashboard() {
             Welcome{firstName ? `, ${firstName}` : ''}
           </h1>
           <p className="text-sm text-gray-500 mt-1">
-            You're signed in as <span className="font-medium">{user.email}</span>.
+            You&apos;re signed in as <span className="font-medium">{user.email}</span>.
           </p>
         </div>
 
@@ -107,7 +118,6 @@ function Nav() {
   return (
     <div className="flex justify-between items-center">
       <span className="text-sm font-semibold text-gray-900">My Account</span>
-      <LogoutButton />
     </div>
   )
 }

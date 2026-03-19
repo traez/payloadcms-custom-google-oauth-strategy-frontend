@@ -1,19 +1,15 @@
 // src/components/Navbar.tsx
 import Link from 'next/link'
 import { getUser } from '@/auth/getUser'
+import { LogoutButton } from '@/components/LogoutButton'
 
 const Navbar = async () => {
   const user = await getUser()
 
-  //console.log('USER:', JSON.stringify(user, null, 2))
-
   const navLinks = [
     { name: 'Home', href: '/' },
     ...(user
-      ? [
-          { name: 'AccountDashboard', href: '/account-dashboard' },
-          { name: 'Logout', href: '/logout' },
-        ]
+      ? [{ name: 'AccountDashboard', href: '/account-dashboard' }]
       : [{ name: 'Login', href: '/login' }]),
   ]
 
@@ -32,6 +28,8 @@ const Navbar = async () => {
       ))}
 
       <span className="ml-auto text-white">{greeting}</span>
+
+      {user && <LogoutButton />}
     </nav>
   )
 }

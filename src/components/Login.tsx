@@ -1,6 +1,6 @@
 // src/components/Login.tsx
 'use client'
-
+import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 
@@ -31,7 +31,7 @@ function LoginInner() {
           </div>
         )}
 
-        <a
+        <Link
           href="/api/users/auth/google"
           className="flex items-center justify-center gap-2.5 w-full px-4 py-2.5 border border-gray-300 rounded-md text-gray-900 text-sm font-medium bg-white hover:bg-gray-50 transition"
         >
@@ -54,13 +54,13 @@ function LoginInner() {
             />
           </svg>
           Continue with Google
-        </a>
+        </Link>
 
         <p className="mt-5 text-xs text-gray-400 text-center">
           Staff?{' '}
-          <a href="/admin" className="text-blue-600 hover:underline">
+          <Link href="/admin" className="text-blue-600 hover:underline">
             Sign in via Admin →
-          </a>
+          </Link>
         </p>
       </div>
     </main>
