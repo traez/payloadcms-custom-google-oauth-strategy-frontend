@@ -1,6 +1,6 @@
 // src/collections/Users.ts
 import type { CollectionConfig } from 'payload'
-import { admin, selfOrStaff, adminFieldAccess } from '@/access/roles'
+import { admin, selfOrAdmin, selfOrStaff, adminFieldAccess } from '@/access/roles'
 import { slugifyDisplayName } from '@/hooks/users/slugifyDisplayName'
 
 export const Users: CollectionConfig = {
@@ -10,14 +10,13 @@ export const Users: CollectionConfig = {
     defaultColumns: ['email', 'role', 'displayName.firstName', 'displayName.lastName', 'updatedAt'],
   },
   auth: true,
-  // src/collections/Users.ts  (access block only — rest stays the same)
   access: {
     read: selfOrStaff(), // customers see themselves; staff see all
     create: admin, // only admins create users manually
-    update: selfOrStaff(), // customers update themselves; staff update anyone
+    update: selfOrAdmin(), // customers update themselves; admin update anyone
     delete: admin, // admins only
     admin: (
-      { req: { user } }, // who can enter /admin
+      { req: { user } }, // Allow access to /admin only for staff roles
     ) => Boolean(user && ['admin', 'owner', 'editor', 'member'].includes(user.role)),
   },
   fields: [
